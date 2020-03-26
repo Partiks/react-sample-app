@@ -1,0 +1,23 @@
+{
+  "name": "sample_web",
+  "version": "0.1.0", 
+  "description": "Sample reactjs web app for Parth to build full CI/CD  pipeline",
+  "main": "index.js",
+  "dependencies": {
+    "react-app-rewired": "^2.1.5",
+    "react-dev-utils": "^10.2.1",
+    "react-scripts": "^3.4.1",
+    "lodash.flow": "^3.5.0",
+    "less-loader": "^5.0.0",
+    "babel-plugin-import": "^1.13.0",
+    "react-dom": "^16.13.1",
+    "react": "^16.13.1"
+  },
+  "author": "Parth Patel",
+  "scripts": {
+    "start": "react-app-rewired start",
+    "build": "react-app-rewired --max_old_space_size=4096 build",
+    "test": "react-app-rewired test",
+    "eject": "react-scripts eject"
+  }
+}
