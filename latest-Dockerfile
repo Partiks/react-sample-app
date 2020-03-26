@@ -16,21 +16,27 @@ RUN echo "lul"
 
 RUN npm install yarn -g
 
-COPY package.json /apps/package.json
+COPY config-overrides.js /apps/config-overrides.js
 
-COPY . /apps
+COPY Dockerfile /apps/Dockerfile
 
-RUN yarn install
+COPY customize-cra/ /apps/customize-cra/
 
-COPY ./customize-cra ./node_modules/customize-cra
+COPY customize-cra/ /apps/node_modules/customize-cra/
 
 RUN ls -la
 
-RUN ls -la ./public
+RUN ls -la /apps/node_modules/customize-cra
 
-RUN yarn build
+COPY public/ /apps/
+
+COPY package.json /apps/package.json
+
+RUN yarn install
 
 RUN rm -rf /usr/share/nginx/html/
+
+RUN yarn build
 
 RUN ln -s /apps/build /usr/share/nginx/html
 
