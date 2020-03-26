@@ -12,28 +12,32 @@ RUN node --version
 
 RUN npm --version
 
-RUN echo "lul"
-
 RUN npm install yarn -g
 
-COPY package.json /apps/package.json
+COPY config-overrides.js /apps/config-overrides.js
 
-COPY . /apps
+COPY public/ /apps/public/
 
-RUN yarn install
-
-COPY ./customize-cra ./node_modules/customize-cra
+COPY src/ /apps/src/
 
 RUN ls -la
 
-RUN ls -la ./public
+COPY package.json /apps/package.json
 
-RUN yarn build
+RUN yarn install
+
+COPY customize-cra/ /apps/node_modules/customize-cra/
 
 RUN rm -rf /usr/share/nginx/html/
+
+RUN ls -la /apps/public
+
+RUN yarn build
 
 RUN ln -s /apps/build /usr/share/nginx/html
 
 EXPOSE 80
+
+COPY Dockerfile /apps/Dockerfile
 
 CMD ["nginx", "-g", "daemon off;"]
