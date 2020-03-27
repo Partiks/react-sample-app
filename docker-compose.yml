@@ -1,0 +1,44 @@
+version: "3.5"
+services:
+  web:
+    image: partiks/sample_web:v2
+    build: ./web
+    hostname: sample_web
+    container_name: sample_web
+    restart: unless-stopped
+    ports:
+    - 8080:80
+    environment:
+    - "TZ=America/Chicago"
+    depends_on:
+            #    - db
+    - backend
+
+  backend:
+    image: partiks/sample_node_backend:v1
+    build: ./services
+    hostname: sample_node_backend
+    container_name: sample_backend
+    restart: unless-stopped
+    ports:
+    - 3000:3000
+    environment:
+    - "TZ=America/Chicago"
+    depends_on:
+    - db
+
+  db:
+    image: mongo 
+    hostname: sample_mongo
+    container_name: sample_mongo
+    restart: unless-stopped
+    ports:
+    - 27017-27019:27017-27019
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: 123
+      MONGO_INITDB_DATABASE: partiks_db 
+      TZ: America/Chicago
+    volumes:
+    - ./db/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js
+      #    command: mongod --auth

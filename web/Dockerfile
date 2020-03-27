@@ -1,4 +1,4 @@
-FROM txnexus.mouser.lan:14101/mouser/base-images/centos:7
+FROM centos 
 
 WORKDIR /apps
 
@@ -18,7 +18,7 @@ COPY config-overrides.js /apps/config-overrides.js
 
 COPY public/ /apps/public/
 
-COPY src/ /apps/src/
+#COPY src/ /apps/src/
 
 RUN ls -la
 
@@ -31,6 +31,8 @@ COPY customize-cra/ /apps/node_modules/customize-cra/
 RUN rm -rf /usr/share/nginx/html/
 
 RUN ls -la /apps/public
+
+COPY src/ /apps/src/
 
 RUN yarn build
 
