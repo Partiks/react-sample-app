@@ -1,18 +1,18 @@
 version: "3.5"
 services:
-  web:
-    image: partiks/sample_web:v2
-    build: ./web
-    hostname: sample_web
-    container_name: sample_web
-    restart: unless-stopped
-    ports:
-    - 8080:80
-    environment:
-    - "TZ=America/Chicago"
-    depends_on:
-            #    - db
-    - backend
+        #  web:
+        #    image: partiks/sample_web:v2
+        #    build: ./web
+        #    hostname: sample_web
+        #    container_name: sample_web
+        #    restart: unless-stopped
+        #    ports:
+        #    - 8080:80
+        #    environment:
+        #    - "TZ=America/Chicago"
+        #    depends_on:
+        #            #    - db
+        #    - backend
 
   backend:
     image: partiks/sample_node_backend:v1

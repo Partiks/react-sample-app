@@ -18,9 +18,9 @@ db.createUser({
 
 db.auth("test-user", "456");
 
-db.createCollection("dummy_data");
+db.createCollection("users");
 
-db.dummy_data.insertMany([
+db.users.insertMany([
   {
     _id: 1,
     name: "Everyone",

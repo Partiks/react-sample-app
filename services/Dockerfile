@@ -9,9 +9,11 @@ COPY package.json /srv/api/package.json
 
 RUN npm install
 
-COPY index.js /srv/api/index.js
-
 COPY ./result/ ./result/
+
+COPY ./models/ ./models/
+
+COPY index.js /srv/api/index.js
 
 EXPOSE 3000
 
