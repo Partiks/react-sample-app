@@ -13,7 +13,7 @@ var User = require ('./models/user');
 app.use(cors());
 app.use(bodyParser.json());
 
-mongoose.connect('mongodb://test-user:456@10.0.2.13:27017/partiks_db', function (err, res){
+mongoose.connect('mongodb://test-user:456@10.0.2.44:27017/partiks_db', function (err, res){
 	if (err)
 		console.log("MongoDB connection error");
 	else

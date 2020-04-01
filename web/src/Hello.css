@@ -1,34 +1,36 @@
-.App {
-  text-align: center;
+.Hello {
+  text-align: left;
+  background-color: #022243;
 }
 
-.App-logo {
+.Hello-logo {
   height: 40vmin;
   pointer-events: none;
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+  .Hello-logo {
+    animation: Hello-logo-spin infinite 20s linear;
   }
 }
 
-.App-header {
-  background-color: #282c34;
+.Hello-body {
+  background-color: #022243;
   min-height: 20vh;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: left;
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+  margin-left: 0.8rem;
 }
 
-.App-link {
+.Hello-link {
   color: #61dafb;
 }
 
-@keyframes App-logo-spin {
+@keyframes Hello-logo-spin {
   from {
     transform: rotate(0deg);
   }
