@@ -1,7 +1,7 @@
 version: "3.5"
 services:
   web:
-    image: partiks/sample_web:v2
+    image: partiks/sample_web:v1
     build: ./web
     hostname: sample_web
     container_name: sample_web
@@ -11,7 +11,6 @@ services:
     environment:
     - "TZ=America/Chicago"
     depends_on:
-            #    - db
     - backend
 
   backend:
@@ -28,7 +27,8 @@ services:
     - db
 
   db:
-    image: mongo 
+    image: mongo
+    #    build: ./db
     hostname: sample_mongo
     container_name: sample_mongo
     restart: unless-stopped
@@ -39,6 +39,6 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: 123
       MONGO_INITDB_DATABASE: partiks_db 
       TZ: America/Chicago
-    volumes:
-    - ./db/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js
+      #    volumes:
+        #    - ./db/init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js
       #    command: mongod --auth

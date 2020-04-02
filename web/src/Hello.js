@@ -10,9 +10,7 @@ class Hello extends React.Component {
     state = {
         name: '',
         greeting:'', 
-	    data: [],
 		users: [],
-		users_list: []
 	}
 
     // Then we add our constructor which receives our props
@@ -22,33 +20,26 @@ class Hello extends React.Component {
         this.state = {
             name: '',
             greeting: `${this.props.time}`,
-		    data: [],
 			users: [],
-			users_list: []
         }
         // To use the 'this' keyword, we need to bind it to our function
         this.onChange = this.onChange.bind(this);
     }
 
 	componentDidMount(){
-		axios.get('http://10.0.2.44:3000/users/').then( res => res.json()).then( (json) => {
-			this.setState({data: json}).then( profileState => {
-				console.log(JSON.stringify(this.state.data));
-				// map users JSON data to parse in future
-				this.state.users_list = profileState.data.map((user) => {
-					return(
-						<li key={user.name}>
-							<h2>{user.name}</h2>
-							<h3>{user.says}</h3>
-							<h3>{user.status}</h3>
-						</li>
-					)
-				})
-			})
+		axios.get('http://10.0.2.44:3000/users/').then( res =>{
+			this.setState({ users: res.data }); 
+		}).catch( (err) => {
+			console.log(err);
 		});
-		this.setState({users: this.state.users_list});
 		console.log("USERS STATE: ", this.state.users);
 	}
+
+//	usersList(){
+//		return this.state.users.map( function(users, i){
+//			return <//HERE
+//		}
+//	}
 
     // A custom function to change the name in our state to match the user input
     onChange(e) {
@@ -63,6 +54,27 @@ class Hello extends React.Component {
 		<header className="Hello">
 		<body className="Hello-body">
 		
+		<section>
+			<p> Below values from Database!!! </p>
+			<table>
+				{
+				this.state.users.map( function (user) {
+					return (<div id="table-values"> 
+								<tr>
+									<td> Name: {user.name}</td>
+								</tr>
+								<tr>
+									<td> Says: {user.says}</td>
+								</tr>
+								<tr> 
+									<td>Status: {user.status}</td>
+								</tr> <br />
+							</div>)
+				})
+				}
+			</table>
+
+		</section>
                 <section className="section">
                     <label className="label">Name: </label>
                     <input className="input" name="name" placeholder="Enter your name..." onChange={this.onChange} />
@@ -70,10 +82,6 @@ class Hello extends React.Component {
                 <section className="section">
                     <p> Hi {this.state.name}, {this.state.greeting}</p>
                 </section>
-		<section>
-			<p> Below values from Database!!! </p>
-			<ul> {this.state.users} </ul>
-		</section>
 		</body>
 		</header>
             </div>

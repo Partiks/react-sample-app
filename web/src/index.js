@@ -11,6 +11,6 @@ ReactDOM.render(
   document.getElementById("root")
 );
 
-ReactDOM.render(<App />, document.getElementById("app-root"));
+//ReactDOM.render(<App />, document.getElementById("app-root"));
 
 ReactDOM.render(<Hello time="did you know time is a social construct? " />, document.getElementById("hello"));
