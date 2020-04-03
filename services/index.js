@@ -8,14 +8,14 @@ var path = require('path');
 var fs = require('fs');
 var shell = require('shelljs');
 
-var User = require ('./models/user');
+var UserData = require ('./models/userData');
 
 app.use(cors());
 app.use(bodyParser.json());
 
 mongoose.connect('mongodb://test-user:456@10.0.2.44:27017/partiks_db', function (err, res){
 	if (err)
-		console.log("MongoDB connection error");
+		console.log("MongoDB connection error" + err);
 	else
 		console.log("MongoFB connection established successfully.");
 });
@@ -33,7 +33,7 @@ app.listen(3000, function () {
 
 app.get('/users', function (req, res) {
 	console.log('DB users called');
-	User.find( (err, users) => {
+	UserData.find( (err, users) => {
 		if(err){
 			console.log(err);
 		}

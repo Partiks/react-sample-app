@@ -35,10 +35,10 @@ services:
     ports:
     - 27017-27019:27017-27019
     environment:
-      MONGO_INITDB_ROOT_USERNAME: admin
-      MONGO_INITDB_ROOT_PASSWORD: 123
-      MONGO_INITDB_DATABASE: partiks_db 
-      TZ: America/Chicago
-      #    volumes:
-        #    - ./db/init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js
-      #    command: mongod --auth
+    - "MONGO_INITDB_ROOT_USERNAME=admin"
+    - "MONGO_INITDB_ROOT_PASSWORD=123"
+    - "MONGO_INITDB_DATABASE=partiks_db" 
+    - "TZ=America/Chicago"
+    volumes:
+    - ${PWD}/db/init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js
+    - ${PWD}/db/insert-data.js:/docker-entrypoint-initdb.d/insert-data.js

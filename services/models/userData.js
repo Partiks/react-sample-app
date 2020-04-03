@@ -12,8 +12,9 @@ let userSchema = new Schema({
 	status: {
 		type: String
 	}
-});
+},
+	{collection: 'userdata'});
 
-const User = mongoose.model('User', userSchema);
+const UserData = mongoose.model('UserData', userSchema); //userData is the collection name in MongoDB database
 
-module.exports = User;
+module.exports = UserData;

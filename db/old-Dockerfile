@@ -1,0 +1,21 @@
+FROM mongo
+
+#USER root
+
+RUN mkdir -p /apps/mongo
+
+COPY ./init-mongo.js /apps/mongo/init-mongo.js
+
+COPY ./insert-data.js /apps/mongo/insert-data.js
+
+RUN chown -R mongodb:mongodb /apps/
+
+EXPOSE 27017-27019
+
+#USER mongodb
+
+#RUN mongod --fork --syslog && mongo /apps/mongo/init-mongo.js
+
+#RUN mongod --fork --syslog && mongo /apps/mongo/insert-data.js
+
+CMD ["mongod"]
