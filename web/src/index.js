@@ -3,10 +3,10 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import Hello from './Hello';
-import * as serviceWorker from './serviceWorker';
+import * as serviceWorker from './serviceWorker'; //not used at all right now in the app
 
 ReactDOM.render(
-  <h1>Hello, DevOps Frontend! </h1>,
+  <h1>Hello, DevOps Frontend! V1.0 </h1>,
   //  <App />,
   document.getElementById("root")
 );

@@ -13,8 +13,9 @@ let userSchema = new Schema({
 		type: String
 	}
 },
-	{collection: 'userdata'});
+	{ collection: 'userdata' }
+);
 
-const UserData = mongoose.model('UserData', userSchema); //userData is the collection name in MongoDB database
+const UserData = mongoose.model('UserData', userSchema); //userData is the collection name in MongoDB's Partiks database
 
 module.exports = UserData;

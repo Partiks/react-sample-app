@@ -27,8 +27,8 @@ services:
     - db
 
   db:
-    image: mongo
-    #    build: ./db
+    image: partiks/sample_mongo:v1
+    build: ./db
     hostname: sample_mongo
     container_name: sample_mongo
     restart: unless-stopped
@@ -39,6 +39,6 @@ services:
     - "MONGO_INITDB_ROOT_PASSWORD=123"
     - "MONGO_INITDB_DATABASE=partiks_db" 
     - "TZ=America/Chicago"
-    volumes:
-    - ${PWD}/db/init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js
-    - ${PWD}/db/insert-data.js:/docker-entrypoint-initdb.d/insert-data.js
+      #    volumes:
+      #    - ${PWD}/db/init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js
+      #    - ${PWD}/db/insert-data.js:/docker-entrypoint-initdb.d/insert-data.js

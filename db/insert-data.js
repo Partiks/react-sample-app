@@ -4,8 +4,6 @@ db.auth("test-user", "456");
 
 db.createCollection("userdata");
 
-db.setProfilingLevel(2)
-
 db.userdata.insertMany([
   {   
     _id: 4,

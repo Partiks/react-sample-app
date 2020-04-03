@@ -35,12 +35,6 @@ class Hello extends React.Component {
 		console.log("USERS STATE: ", this.state.users);
 	}
 
-//	usersList(){
-//		return this.state.users.map( function(users, i){
-//			return <//HERE
-//		}
-//	}
-
     // A custom function to change the name in our state to match the user input
     onChange(e) {
         this.setState({

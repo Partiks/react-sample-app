@@ -1,7 +1,7 @@
 {
   "name": "sample_web",
   "version": "0.1.0",
-  "description": "Sample reactjs web app for Parth to build full CI/CD  pipeline",
+  "description": "Sample reactjs web app for Parth to build test future automations and CI/CD pipelines",
   "main": "index.js",
   "dependencies": {
     "react-app-rewired": "^2.1.5",
