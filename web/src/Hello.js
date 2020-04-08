@@ -11,6 +11,7 @@ class Hello extends React.Component {
         name: '',
         greeting:'', 
 		users: [],
+		dbversion: ''
 	}
 
     // Then we add our constructor which receives our props
@@ -21,6 +22,7 @@ class Hello extends React.Component {
             name: '',
             greeting: `${this.props.time}`,
 			users: [],
+			dbverison: ''
         }
         // To use the 'this' keyword, we need to bind it to our function
         this.onChange = this.onChange.bind(this);
@@ -33,6 +35,12 @@ class Hello extends React.Component {
 			console.log(err);
 		});
 		console.log("USERS STATE: ", this.state.users);
+
+		axios.get('http://10.0.2.44:3000/dbversion').then( res => {
+			this.setState({ dbversion: res.data });
+		}).catch( (err) => {
+			console.log(err);
+		});
 	}
 
     // A custom function to change the name in our state to match the user input
@@ -50,6 +58,7 @@ class Hello extends React.Component {
 		
 		<section>
 			<p> Below values from Database!!! </p>
+			<p> { this.state.dbversion } </p>
 			<table>
 				{
 				this.state.users.map( function (user) {

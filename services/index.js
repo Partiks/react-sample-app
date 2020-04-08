@@ -25,6 +25,12 @@ app.listen(3000, function () {
   console.log('app listening on port 3000!')
 })
 
+app.get('/dbversion', function (req, res) {
+	console.log('DB version called');
+	res.statusCode=200;
+	res.send('Backend version: v1');
+});
+
 app.get('/users', function (req, res) {
 	console.log('DB users called');
 	UserData.find( (err, users) => {
@@ -32,7 +38,7 @@ app.get('/users', function (req, res) {
 			console.log(err);
 		}
 		else{
-			console.log(users);
+			console.log("Backend V1 \n %j", users);
 			res.json(users);
 		}
 	});
