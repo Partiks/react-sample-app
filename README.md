@@ -5,7 +5,7 @@ docker-compose up -d --build
 
 web: Web App is a ReactJS application which has 2 components: Hello and App. Only Hello component is used currently.
 
-services: This is the NodeJS backend application which communicates with the MongoDB database container.
+backend: This is the NodeJS backend application which communicates with the MongoDB database container.
 
 db: Almost the plain MongoDB docker image. Just copying the init scripts into "/docker-entrypoint-initdb.d" directory, the .js or .sh files in which are automatically called by the mongo docker image by default for initialization puroses and creates initial users and inserts some dummy data into "partiks_db" database.
 
@@ -16,7 +16,7 @@ docker build . -t partiks/sample_web:v1 && docker stop test_react && docker rm t
 OR
 docker run -t --name test_react -p 8080:80 -d partiks/sample_web:v1
 
-For trying just NodeJS in services/ directory:
+For trying just NodeJS in backend/ directory:
 docker build . -t partiks/sample_node_backend:v1 && docker stop test_node && docker rm test_node && docker run -t --name test_node -p 3000:3000 -d partiks/sample_node_backend:v1
 OR
 docker run -t --name test_node -p 3000:3000 -d partiks/sample_node_backend:v1
