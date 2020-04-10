@@ -28,7 +28,7 @@ app.listen(3000, function () {
 app.get('/dbversion', function (req, res) {
 	console.log('DB version called');
 	res.statusCode=200;
-	res.send('Backend version: v1.1');
+	res.send('Backend version: V1.1');
 });
 
 app.get('/users', function (req, res) {
