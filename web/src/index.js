@@ -6,7 +6,7 @@ import Hello from './Hello';
 import * as serviceWorker from './serviceWorker'; //not used at all right now in the app
 
 ReactDOM.render(
-  <h1>Hello, DevOps Frontend! V1.1 </h1>,
+  <h1>Hello, DevOps Frontend! V1.44 </h1>,
   //  <App />,
   document.getElementById("root")
 );

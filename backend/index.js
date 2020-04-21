@@ -28,7 +28,7 @@ app.listen(3000, function () {
 app.get('/dbversion', function (req, res) {
 	console.log('DB version called');
 	res.statusCode=200;
-	res.send('Backend version: V1.1');
+	res.send('Backend version: V1.44');
 });
 
 app.get('/users', function (req, res) {
@@ -38,7 +38,6 @@ app.get('/users', function (req, res) {
 			console.log(err);
 		}
 		else{
-			console.log("Backend V1 \n %j", users);
 			res.json(users);
 		}
 	});
@@ -48,5 +47,5 @@ app.get('/', function (req, res) {
 //   res.sendFile(path.join(__dirname + '/index.html'));
   res.statusCode = 200;
   res.setHeader('Content-Type', 'text/plain');
-  res.send('Hello DevOps Backend! V1.0')
+  res.send('Hello DevOps Backend! V1.44')
 })

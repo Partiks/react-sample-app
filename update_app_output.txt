@@ -1,0 +1,301 @@
+
+
+Old web version: 1.33
+Old backend version: 1.33
+Old Mongo version: 1.33
+New web version: 1.44
+New backend version: 1.44
+New Mongo version: 1.44
+Step 1/5 : FROM mongo
+ ---> c5e5843d9f5f
+Step 2/5 : COPY ./init-mongo.js /docker-entrypoint-initdb.d/init-mongo.js
+ ---> Using cache
+ ---> 2992dcf6826a
+Step 3/5 : COPY ./insert-data.js /docker-entrypoint-initdb.d/insert-data.js
+ ---> afa88ddc339b
+Removing intermediate container 496c923f020d
+Step 4/5 : EXPOSE 27017-27019
+ ---> Running in 336a614cd566
+ ---> b969577274a0
+Removing intermediate container 336a614cd566
+Step 5/5 : CMD mongod
+ ---> Running in ba3324e7770c
+ ---> 4f0922eac7d8
+Removing intermediate container ba3324e7770c
+Successfully built 4f0922eac7d8
+Step 1/11 : FROM node
+ ---> c31fbeb964cc
+Step 2/11 : RUN node --version
+ ---> Using cache
+ ---> 7a0ab220a865
+Step 3/11 : RUN npm --version
+ ---> Using cache
+ ---> 3a315b355b6c
+Step 4/11 : WORKDIR /srv/api
+ ---> Using cache
+ ---> 7c4e574d85a9
+Step 5/11 : COPY package.json /srv/api/package.json
+ ---> Using cache
+ ---> ac682d360082
+Step 6/11 : RUN npm install
+ ---> Using cache
+ ---> 73960cb8eb1c
+Step 7/11 : COPY ./result/ ./result/
+ ---> Using cache
+ ---> fbd1ff37a476
+Step 8/11 : COPY ./models/ ./models/
+ ---> Using cache
+ ---> 0ca2484cde50
+Step 9/11 : COPY index.js /srv/api/index.js
+ ---> 703b60650798
+Removing intermediate container 97e2a01396d4
+Step 10/11 : EXPOSE 3000
+ ---> Running in c4d379b59378
+ ---> 36aa096a346b
+Removing intermediate container c4d379b59378
+Step 11/11 : CMD node index.js
+ ---> Running in 60201f767c21
+ ---> 85073e32755b
+Removing intermediate container 60201f767c21
+Successfully built 85073e32755b
+Step 1/22 : FROM centos
+ ---> 470671670cac
+Step 2/22 : WORKDIR /apps
+ ---> Using cache
+ ---> 84b44ff6c556
+Step 3/22 : RUN curl -sL https://rpm.nodesource.com/setup_12.x | bash -
+ ---> Using cache
+ ---> 064f868f556f
+Step 4/22 : RUN yum install nodejs -y
+ ---> Using cache
+ ---> eb626d34b082
+Step 5/22 : RUN yum install epel-release -y && yum install nginx -y
+ ---> Using cache
+ ---> b2e24ea342cb
+Step 6/22 : RUN node --version
+ ---> Using cache
+ ---> 2a480304bd39
+Step 7/22 : RUN npm --version
+ ---> Using cache
+ ---> f70114e91496
+Step 8/22 : RUN npm install yarn -g
+ ---> Using cache
+ ---> 71affbc0fbb4
+Step 9/22 : COPY config-overrides.js /apps/config-overrides.js
+ ---> Using cache
+ ---> 530c223ec128
+Step 10/22 : COPY public/ /apps/public/
+ ---> Using cache
+ ---> 2937126eb0ac
+Step 11/22 : RUN ls -la
+ ---> Using cache
+ ---> d9e06be951ae
+Step 12/22 : COPY package.json /apps/package.json
+ ---> Using cache
+ ---> 3132ad111be7
+Step 13/22 : RUN yarn install
+ ---> Using cache
+ ---> 9a1366a8d71f
+Step 14/22 : COPY customize-cra/ /apps/node_modules/customize-cra/
+ ---> Using cache
+ ---> 6656dad90a57
+Step 15/22 : RUN rm -rf /usr/share/nginx/html/
+ ---> Using cache
+ ---> de99106fb9ab
+Step 16/22 : RUN ls -la /apps/public
+ ---> Using cache
+ ---> 117e2d6aba45
+Step 17/22 : COPY src/ /apps/src/
+ ---> e2086afa7f69
+Removing intermediate container a75bcf7bc771
+Step 18/22 : RUN yarn build
+ ---> Running in 99026fa23c3f
+
+[91m[0myarn run v1.22.4
+[91mwarning package.json: No license field
+[0m$ react-app-rewired --max_old_space_size=4096 build
+Creating an optimized production build...
+Compiled with warnings.
+
+./src/Hello.js
+  Line 2:8:  'ReactDOM' is defined but never used  no-unused-vars
+
+./src/index.js
+  Line 4:8:   'App' is defined but never used            no-unused-vars
+  Line 6:13:  'serviceWorker' is defined but never used  no-unused-vars
+
+Search for the keywords to learn more about each warning.
+To ignore, add // eslint-disable-next-line to the line before.
+
+File sizes after gzip:
+
+  44.63 KB  build/static/js/2.8d795a1a.chunk.js
+  1.01 KB   build/static/js/main.20e98053.chunk.js
+  771 B     build/static/js/runtime-main.ebc64ae9.js
+  624 B     build/static/css/main.74b6d50e.chunk.css
+
+The project was built assuming it is hosted at /.
+You can control this with the homepage field in your package.json.
+
+The build folder is ready to be deployed.
+You may serve it with a static server:
+
+  yarn global add serve
+  serve -s build
+
+Find out more about deployment here:
+
+  bit.ly/CRA-deploy
+
+Done in 10.39s.
+ ---> c716b8a3da8f
+Removing intermediate container 99026fa23c3f
+Step 19/22 : RUN ln -s /apps/build /usr/share/nginx/html
+ ---> Running in 9b6d47b6ffe7
+
+[91m[0m ---> 4043d2c9cd70
+Removing intermediate container 9b6d47b6ffe7
+Step 20/22 : EXPOSE 80
+ ---> Running in 5fafa69128cb
+ ---> 246285328838
+Removing intermediate container 5fafa69128cb
+Step 21/22 : COPY Dockerfile /apps/Dockerfile
+ ---> f8acaa85adc4
+Removing intermediate container 0c5c712cc5ce
+Step 22/22 : CMD nginx -g daemon off;
+ ---> Running in f4ee7889f0a7
+ ---> a24413361752
+Removing intermediate container f4ee7889f0a7
+Successfully built a24413361752
+The push refers to a repository [docker.io/partiks/sample_web]
+7f35a84eb844: Preparing
+75daa7de0ad3: Preparing
+1d59944de49f: Preparing
+0514e397bdd6: Preparing
+9f1f58c7f7f4: Preparing
+936ad2b0ff09: Preparing
+ca3d02b38b83: Preparing
+2c19866ad2ad: Preparing
+74ee04da85cd: Preparing
+a78ad9ebe89a: Preparing
+98d04600b3d5: Preparing
+72743bf0dc40: Preparing
+f2f90ca44d32: Preparing
+58d020ae9f2e: Preparing
+44196bdfa52b: Preparing
+0683de282177: Preparing
+936ad2b0ff09: Waiting
+ca3d02b38b83: Waiting
+2c19866ad2ad: Waiting
+74ee04da85cd: Waiting
+a78ad9ebe89a: Waiting
+98d04600b3d5: Waiting
+72743bf0dc40: Waiting
+58d020ae9f2e: Waiting
+f2f90ca44d32: Waiting
+44196bdfa52b: Waiting
+0683de282177: Waiting
+9f1f58c7f7f4: Layer already exists
+936ad2b0ff09: Layer already exists
+ca3d02b38b83: Layer already exists
+2c19866ad2ad: Layer already exists
+74ee04da85cd: Layer already exists
+a78ad9ebe89a: Layer already exists
+98d04600b3d5: Layer already exists
+72743bf0dc40: Layer already exists
+f2f90ca44d32: Layer already exists
+0514e397bdd6: Pushed
+75daa7de0ad3: Pushed
+58d020ae9f2e: Layer already exists
+7f35a84eb844: Pushed
+44196bdfa52b: Layer already exists
+0683de282177: Layer already exists
+1d59944de49f: Pushed
+v1.44: digest: sha256:4d4a26033f010115ba64c4afa8a1bcc7def220c033d3920359eaaca46a10126e size: 3664
+The push refers to a repository [docker.io/partiks/sample_backend]
+2453ed54cac2: Preparing
+af06a6fa172b: Preparing
+9387353c7d6f: Preparing
+df03ea5f37a2: Preparing
+6868c6e47f3a: Preparing
+8cb8349d0b33: Preparing
+01305748d90a: Preparing
+c058eaf748c8: Preparing
+eb58d2440516: Preparing
+66cf06b2e874: Preparing
+45ac74adb5b4: Preparing
+d485cbbe6a5e: Preparing
+391c89959588: Preparing
+588545a7a2a3: Preparing
+8452468a5e50: Preparing
+55b19a5e648f: Preparing
+c058eaf748c8: Waiting
+eb58d2440516: Waiting
+66cf06b2e874: Waiting
+45ac74adb5b4: Waiting
+d485cbbe6a5e: Waiting
+391c89959588: Waiting
+588545a7a2a3: Waiting
+8452468a5e50: Waiting
+55b19a5e648f: Waiting
+8cb8349d0b33: Waiting
+01305748d90a: Waiting
+9387353c7d6f: Mounted from partiks/sample_node_backend
+6868c6e47f3a: Mounted from partiks/sample_node_backend
+df03ea5f37a2: Mounted from partiks/sample_node_backend
+af06a6fa172b: Mounted from partiks/sample_node_backend
+2453ed54cac2: Pushed
+eb58d2440516: Mounted from partiks/sample_node_backend
+c058eaf748c8: Mounted from partiks/sample_node_backend
+01305748d90a: Mounted from partiks/sample_node_backend
+8cb8349d0b33: Mounted from partiks/sample_node_backend
+45ac74adb5b4: Mounted from partiks/sample_node_backend
+d485cbbe6a5e: Mounted from partiks/sample_node_backend
+66cf06b2e874: Mounted from partiks/sample_node_backend
+588545a7a2a3: Mounted from partiks/sample_node_backend
+391c89959588: Mounted from partiks/sample_node_backend
+8452468a5e50: Mounted from partiks/sample_node_backend
+55b19a5e648f: Mounted from partiks/sample_node_backend
+v1.44: digest: sha256:090d7aad0812f20d46819ae5e3f03832d7fda2e41b87e5199d73c38cd7206dc8 size: 3670
+The push refers to a repository [docker.io/partiks/sample_mongo]
+4fb4e94a54ba: Preparing
+1592f7c37d68: Preparing
+7b25728f9ce0: Preparing
+f91d58dacbb8: Preparing
+d82a30ce1e7b: Preparing
+71410f06bea3: Preparing
+e831a0832a73: Preparing
+600fde4d8f40: Preparing
+b51bb441caf4: Preparing
+0e7f409328fc: Preparing
+6844527e568c: Preparing
+16542a8fc3be: Preparing
+6597da2e2e52: Preparing
+977183d4e999: Preparing
+c8be1b8f4d60: Preparing
+0e7f409328fc: Waiting
+6844527e568c: Waiting
+16542a8fc3be: Waiting
+6597da2e2e52: Waiting
+977183d4e999: Waiting
+c8be1b8f4d60: Waiting
+600fde4d8f40: Waiting
+71410f06bea3: Waiting
+b51bb441caf4: Waiting
+e831a0832a73: Waiting
+d82a30ce1e7b: Layer already exists
+7b25728f9ce0: Layer already exists
+1592f7c37d68: Layer already exists
+f91d58dacbb8: Layer already exists
+71410f06bea3: Layer already exists
+e831a0832a73: Layer already exists
+600fde4d8f40: Layer already exists
+b51bb441caf4: Layer already exists
+6844527e568c: Layer already exists
+0e7f409328fc: Layer already exists
+16542a8fc3be: Layer already exists
+6597da2e2e52: Layer already exists
+977183d4e999: Layer already exists
+c8be1b8f4d60: Layer already exists
+4fb4e94a54ba: Pushed
+v1.44: digest: sha256:a44ebfd312473aad28301fe68492b9448822dcbba98bd4fb415f7047d8cdb60f size: 3447
