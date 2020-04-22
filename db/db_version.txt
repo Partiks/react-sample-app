@@ -1,0 +1,3 @@
+Partiks Sample Full Stack Web App Database
+
+Mongo DB version: V1.45

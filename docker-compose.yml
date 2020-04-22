@@ -1,7 +1,7 @@
 version: "3.5"
 services:
   web:
-    image: partiks/sample_web:v1.44
+    image: partiks/sample_web:v1.45
     build: ./web
     hostname: sample_web
     container_name: sample_web
@@ -14,7 +14,7 @@ services:
    #- backend
 
   backend:
-    image: partiks/sample_backend:v1.44
+    image: partiks/sample_backend:v1.45
     build: ./backend
     hostname: sample_backend
     container_name: sample_backend
@@ -27,7 +27,7 @@ services:
     - db
 
   db:
-    image: partiks/sample_mongo:v1.44
+    image: partiks/sample_mongo:v1.45
     build: ./db
     hostname: sample_mongo
     container_name: sample_mongo

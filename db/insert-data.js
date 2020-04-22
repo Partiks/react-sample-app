@@ -5,6 +5,12 @@ db.auth("test-user", "456");
 db.createCollection("userdata");
 
 db.userdata.insertMany([
+  {
+    _id: 44,
+    name: "Mongo V1.44",
+    says: "not backed up XD",
+    status: "Mongolicious"
+  },
   {   
     _id: 4,
     name: "Partiks",
