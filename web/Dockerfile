@@ -38,6 +38,8 @@ RUN yarn build
 
 RUN ln -s /apps/build /usr/share/nginx/html
 
+COPY nginx.conf /etc/nginx/nginx.conf
+
 EXPOSE 80
 
 COPY Dockerfile /apps/Dockerfile

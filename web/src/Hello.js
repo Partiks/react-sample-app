@@ -6,7 +6,6 @@ import axios from 'axios';
 // First we create our class
 class Hello extends React.Component {
 
-
     state = {
         name: '',
         greeting:'', 
@@ -29,14 +28,14 @@ class Hello extends React.Component {
     }
 
 	componentDidMount(){
-		axios.get('http://10.0.2.44:3000/users/').then( res =>{
+		axios.get('http://10.0.2.44:8080/api/backend/users/').then( res =>{
 			this.setState({ users: res.data }); 
 		}).catch( (err) => {
 			console.log(err);
 		});
 		console.log("USERS STATE: ", this.state.users);
 
-		axios.get('http://10.0.2.44:3000/dbversion').then( res => {
+		axios.get('http://10.0.2.44:8080/api/backend/dbversion').then( res => {
 			this.setState({ dbversion: res.data });
 		}).catch( (err) => {
 			console.log(err);

@@ -13,7 +13,6 @@ var UserData = require ('./models/userData');
 app.use(cors());
 app.use(bodyParser.json());
 
-
 function connectToDb(){
 	mongoose.connect('mongodb://test-user:456@10.0.2.44:27017/partiks_db', {useNewUrlParser:true, autoReconnect: true }).then( (res) => console.log("MongoDB connection established successfully. " + res) ).catch( error => console.error("MongoDB connection error\n" + error));
 }
@@ -28,7 +27,8 @@ app.listen(3000, function () {
 app.get('/dbversion', function (req, res) {
 	console.log('DB version called');
 	res.statusCode=200;
-	res.send('Backend version: V1.45');
+    res.setHeader('Content-Type', 'text/plain');
+	res.send('Backend version: V2.01');
 });
 
 app.get('/users', function (req, res) {
@@ -47,5 +47,5 @@ app.get('/', function (req, res) {
 //   res.sendFile(path.join(__dirname + '/index.html'));
   res.statusCode = 200;
   res.setHeader('Content-Type', 'text/plain');
-  res.send('Hello DevOps Backend! V1.45')
+  res.send('Hello DevOps Backend! V2.01')
 })
