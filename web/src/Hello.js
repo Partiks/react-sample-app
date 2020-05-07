@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './Hello.css';
 import axios from 'axios';
+import { getAPIUrl } from './env';
 
 // First we create our class
 class Hello extends React.Component {
@@ -23,19 +24,21 @@ class Hello extends React.Component {
 			users: [],
 			dbverison: ''
         }
+		this.apiURL = getAPIUrl();
         // To use the 'this' keyword, we need to bind it to our function
         this.onChange = this.onChange.bind(this);
+
     }
 
 	componentDidMount(){
-		axios.get('http://10.0.2.44:8080/api/backend/users/').then( res =>{
+		axios.get(`${this.apiURL}/users/`).then( res =>{
 			this.setState({ users: res.data }); 
 		}).catch( (err) => {
 			console.log(err);
 		});
 		console.log("USERS STATE: ", this.state.users);
 
-		axios.get('http://10.0.2.44:8080/api/backend/dbversion').then( res => {
+		axios.get(`${this.apiURL}/dbversion`).then( res => {
 			this.setState({ dbversion: res.data });
 		}).catch( (err) => {
 			console.log(err);

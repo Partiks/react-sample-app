@@ -10,8 +10,6 @@ services:
     - 8080:80
     environment:
     - "TZ=America/Chicago"
-   #depends_on:
-   #- backend
 
   backend:
     image: partiks/sample_backend:v2.01
@@ -23,24 +21,3 @@ services:
     #     - 127.0.0.1:3000:3000
     environment:
     - "TZ=America/Chicago"
-      #    depends_on:
-      #    - db
-
-## Decoupling Mongo DB from the application as I want to run nginx proxy from the web container to node and to proxy mongo traffic, had to use special stream module which was a lot of headache for this. Also, none of the applications usually have database container with them and are running just the web and backend servers with them.
-
-      #  db:
-      #    image: partiks/sample_mongo:v2.0
-      #    build: ./db
-      #    hostname: sample_mongo
-      #    container_name: sample_mongo
-      #    restart: unless-stopped
-      #    #    ports:
-      #    #      - 127.0.0.1:27017:27017
-      #    environment:
-      #    - "MONGO_INITDB_ROOT_USERNAME=admin"
-      #    - "MONGO_INITDB_ROOT_PASSWORD=123"
-      #    - "MONGO_INITDB_DATABASE=partiks_db" 
-      #    - "TZ=America/Chicago"
-      #      #    volumes:
-      #      #    - ${PWD}/db/init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js
-      #      #    - ${PWD}/db/insert-data.js:/docker-entrypoint-initdb.d/insert-data.js

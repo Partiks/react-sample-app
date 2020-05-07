@@ -18,10 +18,6 @@ COPY config-overrides.js /apps/config-overrides.js
 
 COPY public/ /apps/public/
 
-#COPY src/ /apps/src/
-
-RUN ls -la
-
 COPY package.json /apps/package.json
 
 RUN yarn install
@@ -30,15 +26,15 @@ COPY customize-cra/ /apps/node_modules/customize-cra/
 
 RUN rm -rf /usr/share/nginx/html/
 
-RUN ls -la /apps/public
+COPY nginx.conf /etc/nginx/nginx.conf
+
+RUN ln -sf /dev/stdout /var/log/nginx/access.log && ln -sf /dev/stderr /var/log/nginx/error.log
 
 COPY src/ /apps/src/
 
 RUN yarn build
 
 RUN ln -s /apps/build /usr/share/nginx/html
-
-COPY nginx.conf /etc/nginx/nginx.conf
 
 EXPOSE 80
 

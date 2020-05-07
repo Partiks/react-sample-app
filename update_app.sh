@@ -48,19 +48,19 @@ do
 	esac
 done
 
-#for i in web backend;
-#do
-#	new_ver="$i""_new_ver"
-#	curr_ver="$i""_curr_ver"
-#	if ! [ -z ${!new_ver} ];
-#	then
-#		if (( $(echo "${!curr_ver} >= ${!new_ver}" | bc -l) ));
-#		then
-#			echo -e "\nERROR: New version of any image cannot be less than or equal to the older version. Just leave the prompt blank if not updating any image. $i ${!curr_ver} ${!new_ver}  \n"
-#			exit 1
-#		fi
-#	fi
-#done
+for i in web backend;
+do
+	new_ver="$i""_new_ver"
+	curr_ver="$i""_curr_ver"
+	if ! [ -z ${!new_ver} ];
+	then
+		if (( $(echo "${!curr_ver} >= ${!new_ver}" | bc -l) ));
+		then
+			echo -e "\nERROR: New version of any image cannot be less than or equal to the older version. Just leave the prompt blank if not updating any image. $i ${!curr_ver} ${!new_ver}  \n"
+			exit 1
+		fi
+	fi
+done
 
 echo -e "\nOld web version: $web_curr_ver\nOld backend version: $backend_curr_ver\nNew web version: $web_new_ver\nNew backend version: $backend_new_ver\n "
 
